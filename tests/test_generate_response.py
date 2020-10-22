@@ -6,6 +6,10 @@ def test_error_cases():
         'status': 'error',
         'message': 'Пустое предложение'
     }
+    assert generate_response('   ,') == {
+        "status": 'error',
+        'message': 'Пустое предложение'
+    }
     assert generate_response('Текст текст word') == {
         'status': 'error',
         'message': 'В предложении должен присутствовать только русский текст'
