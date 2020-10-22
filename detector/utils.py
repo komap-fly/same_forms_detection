@@ -25,12 +25,17 @@ def _gen_error(message):
 
 
 def generate_response(phrase: str) -> dict:
-    if len(phrase) == 0:
-        return _gen_error('Пустое предложение')
     if not is_cyrillic(phrase):
         return _gen_error('В предложении должен присутствовать только русский текст')
     words = [i.strip(string.punctuation) for i in phrase.split()]
-    first = words[0]
+    first = ''
+    try:
+        first = words[0]
+    except IndexError:
+        pass
+    first = first.strip()
+    if len(first) == 0:
+        return _gen_error('Пустое предложение')
     if first.isdigit():
         return _gen_error('Первое слово является числом')
     declined_word = [first]
