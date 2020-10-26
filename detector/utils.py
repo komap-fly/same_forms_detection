@@ -38,14 +38,15 @@ def generate_response(phrase: str) -> dict:
         return _gen_error('Пустое предложение')
     if first.isdigit():
         return _gen_error('Первое слово является числом')
-    declined_word = [first]
     forms = set([parse.normal_form for parse in morph.parse(first)])
+    forms.add(first.lower())
     for word in words[1:]:
         word_forms = {parse.normal_form for parse in morph.parse(word)}
+        word_forms.add(word)
         if len(forms & word_forms) > 0:
-            declined_word.append(word)
+            forms |= word_forms
     return {
         'status': 'ok',
-        'declined_word': declined_word,
+        'declined_word': list(sorted(forms)),
         'num_words': number_of_words(phrase)
     }

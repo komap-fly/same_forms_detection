@@ -24,6 +24,6 @@ def test_counts_forms():
     sentence = 'Любая любой любые слово проверка 42'
     assert generate_response(sentence) == {
         'status': 'ok',
-        'declined_word': ['Любая',  'любой', 'любые'],
+        'declined_word': ['люба', 'любая', 'любой', 'любые'],
         'num_words': 5
     }
